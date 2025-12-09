@@ -1,0 +1,15 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalogs:
+  prisma:
+    prisma: latest
+
+ignoredBuiltDependencies:
+  - esbuild
+  - prisma
+
+onlyBuiltDependencies:
+  - sharp
+  - unrs-resolver

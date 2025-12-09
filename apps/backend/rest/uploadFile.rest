@@ -1,0 +1,13 @@
+POST http://localhost:3005/documentos/upload
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="expedienteId"
+
+1
+------boundary
+Content-Disposition: form-data; name="file"; filename="test.pdf"
+Content-Type: application/pdf
+
+< ./test.pdf
+------boundary--

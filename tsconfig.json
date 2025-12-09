@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2020",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      // This maps the package name 'database' to its physical location
+      // The asterisk allows importing subpaths (e.g., 'database/subfile')
+    }
+  }
+}

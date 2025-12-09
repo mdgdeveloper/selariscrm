@@ -1,0 +1,21 @@
+# Create a Docker Compose of a PostgreSQL database for development and testing
+services:
+  db:
+    image: postgres:15
+    container_name: selariscrmdb
+    environment:
+      POSTGRES_USER: selarisuser
+      POSTGRES_PASSWORD: selarispassword
+      POSTGRES_DB: selarisdb
+    ports:
+      - "5434:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - selaris_network
+
+volumes:
+  db_data:
+
+networks:
+  selaris_network:

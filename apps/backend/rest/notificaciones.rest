@@ -1,0 +1,8 @@
+POST http://localhost:3005/notificaciones
+Content-Type: application/json
+
+{
+  "mensaje": "Tarea pendiente de revision",
+  "expedienteId": "1",
+  "tareaId": "1"
+}

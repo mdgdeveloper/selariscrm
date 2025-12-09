@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["relationJoins"]
+  moduleFormat    = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// -----------------------------------------------------
+// ENUMS
+// -----------------------------------------------------
+enum Rol {
+  ADMIN
+  BROKER
+  ASSISTANT
+}
+
+enum EstadoExpediente {
+  ABIERTO
+  EN_PROCESO
+  CERRADO
+}
+
+enum EstadoCivil {
+  SOLTERO
+  CASADO
+  DIVORCIADO
+  VIUDO
+}
+
+enum CategoriaEmpleo {
+  EMPLEADO_CUENTA_AJENA
+  AUTONOMO
+  DESEMPLEADO
+  JUBILADO
+}
+
+// -----------------------------------------------------
+// MODELS
+// -----------------------------------------------------
+
+model Usuario {
+  id        Int    @id @default(autoincrement())
+  nombre    String
+  apellidos String
+  email     String @unique
+  password  String
+  rol       Rol
+
+  // Relations
+  expedientes Expediente[] @relation("BrokerExpedientes")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cliente {
+  id              Int              @id @default(autoincrement())
+  nombre          String
+  apellidos       String
+  fechaNacimiento DateTime?
+  nacionalidad    String?
+  estadoCivil     EstadoCivil?
+  numHijos        Int? // Nº de hijos u otras personas a cargo
+  dni             String? // DNI/NIE/Pasaporte
+  telefono        String?
+  email           String?
+  direccionActual String?
+  tiempoViviendo  Int? // en meses o años → puedes ajustar
+  tipoEmpleo      String? // tiempo completo / parcial / etc.
+  categoriaEmpleo CategoriaEmpleo? // empleado por cuenta ajena / autónomo
+
+  // Datos financieros
+  ingresosNetosMensuales Float?
+  ahorrosDisponibles     Float?
+  otrosIngresos          Float?
+
+  // Deudas
+  deudaPrestamosPersonales Float?
+  deudaCoche               Float?
+  deudaTarjetasCredito     Float?
+  deudaOtrasHipotecas      Float?
+  cuotasMensualesDeudas    Float? // total de cuotas mensuales
+
+  notas String?
+
+  // Relations
+  expedientes Expediente[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Proveedor {
+  id       Int     @id @default(autoincrement())
+  nombre   String
+  contacto String?
+  email    String?
+  telefono String?
+  notas    String?
+  logo     String?
+
+  // No relations for now (standalone)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Expediente {
+  id          Int              @id @default(autoincrement())
+  estado      EstadoExpediente @default(ABIERTO)
+  descripcion String?
+  datos       Json?
+
+  // FK relations
+  clienteId Int
+  brokerId  Int
+
+  cliente Cliente @relation(fields: [clienteId], references: [id])
+  broker  Usuario @relation("BrokerExpedientes", fields: [brokerId], references: [id])
+
+  // Relations
+  tareas         Tarea[]
+  documentos     Documento[]
+  notificaciones Notificacion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Documento {
+  id        Int    @id @default(autoincrement())
+  nombre    String
+  tipo_mime String
+  url       String
+
+  // FK
+  expedienteId Int
+  expediente   Expediente @relation(fields: [expedienteId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tarea {
+  id           Int       @id @default(autoincrement())
+  titulo       String
+  descripcion  String?
+  fecha_limite DateTime?
+  completada   Boolean   @default(false)
+
+  // FK
+  expedienteId Int
+  expediente   Expediente @relation(fields: [expedienteId], references: [id], onDelete: Cascade)
+
+  // Relations
+  notificaciones Notificacion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notificacion {
+  id      Int     @id @default(autoincrement())
+  mensaje String
+  leida   Boolean @default(false)
+
+  // Always related to a Tarea and an Expediente
+  expedienteId Int
+  tareaId      Int
+
+  expediente Expediente @relation(fields: [expedienteId], references: [id], onDelete: Cascade)
+  tarea      Tarea      @relation(fields: [tareaId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,9 @@
+POST http://localhost:3005/notificaciones
+Content-Type: application/json
+
+{
+  "titulo": "Revisar informe mensual",
+  "descripcion": "Revisar y aprobar el informe mensual antes del viernes.",
+  "expedienteId": "1",
+  "fecha_limite": "2025-07-05T17:00:00Z"
+}
