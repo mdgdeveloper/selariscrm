@@ -328,7 +328,7 @@ const DashboardClientes = (props: Props) => {
                   </TableCell>
                   <TableCell></TableCell>
                   <TableCell>
-                    <Badge variant="outline"></Badge>
+                    <Badge variant="outline">{cliente.expedientes.length}</Badge>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
                     {new Date(cliente.updatedAt).toLocaleDateString("es-ES")}

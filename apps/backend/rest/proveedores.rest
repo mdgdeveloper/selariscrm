@@ -1,0 +1,3 @@
+GET http://localhost:3005/proveedores
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2VyZ2lvbWFkcmlnYWxAZ21haWwuY29tIiwiaWF0IjoxNzY1NDAwMDU5LCJleHAiOjE3NjYwMDQ4NTl9.S3BdxJQ9a1hMysvyJIShGxMaDOZ-xqeL1xNrNZg8K2U

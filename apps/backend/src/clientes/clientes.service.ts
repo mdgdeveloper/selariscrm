@@ -18,12 +18,19 @@ export class ClientesService {
 
   // Find a cliente by ID
   async getClienteById(id: number): Promise<Cliente | null> {
-    return await this.prisma.cliente.findUnique({ where: { id } });
+    return await this.prisma.cliente.findUnique({
+      where: { id },
+      include: { expedientes: true },
+    });
   }
 
   // List all clientes
   async listClientes(): Promise<Cliente[]> {
-    return await this.prisma.cliente.findMany();
+    return await this.prisma.cliente.findMany({
+      include: {
+        expedientes: true,
+      },
+    });
   }
 
   // Find a cliente by name
