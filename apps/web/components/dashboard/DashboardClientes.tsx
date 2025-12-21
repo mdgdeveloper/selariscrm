@@ -33,6 +33,7 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Plus, Mail, User, FileText } from "lucide-react";
 import { Cliente } from "@/types/global";
+import EmptyDashboard from "../common/EmptyDashboard";
 
 // Zod schema for client form validation
 const clientSchema = z.object({
@@ -343,15 +344,7 @@ const DashboardClientes = (props: Props) => {
         </Table>
 
         {clientes.length === 0 && (
-          <div className="text-center py-6">
-            <User className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">
-              No hay clientes
-            </h3>
-            <p className="mt-1 text-sm text-gray-500">
-              Comienza añadiendo un nuevo cliente
-            </p>
-          </div>
+          <EmptyDashboard dashboardType="cliente" dashboardTypePlural="clientes" />
         )}
       </CardContent>
     </Card>

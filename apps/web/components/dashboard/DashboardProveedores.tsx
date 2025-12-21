@@ -12,6 +12,7 @@ import { z } from "zod";
 import { Field, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import EmptyDashboard from "../common/EmptyDashboard";
 
 const proveedorSchema = z.object({
   nombre: z.string().min(1, "El nombre es requerido"),
@@ -291,6 +292,9 @@ const DashboardProveedores = (props: Props) => {
             ))}
           </TableBody>
         </Table>
+         {proveedores.length === 0 && (
+          <EmptyDashboard dashboardType="proveedor" dashboardTypePlural="proveedores" />
+        )}
       </CardContent>
     </Card >
   )

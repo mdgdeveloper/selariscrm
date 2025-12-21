@@ -1,0 +1,10 @@
+POST http://localhost:3005/user/create
+Content-Type: application/json
+
+{
+    "email": "sergiomadrigal@gmail.com",
+    "password": "MDGcontra2021",
+    "nombre": "Sergio",
+    "apellidos": "Madrigal",
+    "rol": "ADMIN"
+}
