@@ -209,13 +209,21 @@ const ClienteInfo: React.FC<ClienteInfoProps> = ({
     setIsSaving(true);
 
     try {
+      // Change fechaNacimiento to ISO string or null
+      const fechaNacimientoISO = formData.fechaNacimiento
+        ? new Date(formData.fechaNacimiento).toISOString()
+        : null;
 
+      const updatedFormData = {
+        ...formData,
+        fechaNacimiento: fechaNacimientoISO,
+      };
       const response = await fetch(`/api/clientes/${cliente.id}`, {
         method: "PUT", // Changed from POST to PUT for updates
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedFormData),
       });
 
 

@@ -105,6 +105,7 @@ export interface Expediente {
   datos?: unknown; // JSON field - can be typed more specifically if needed
   clienteId: number;
   brokerId: number;
+  cliente: Cliente;
   broker: Usuario;
   tareas: Tarea[];
   documentos: Documento[];

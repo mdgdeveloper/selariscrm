@@ -8,7 +8,7 @@ const navItems = [
   { icon: LayoutDashboard, label: "Panel de Control", href: "/dashboard" },
   { icon: LayoutDashboard, label: "Clientes", href: "/dashboard/clientes" },
   { icon: Building2, label: "Proveedores", href: "/dashboard/proveedores" },
-  { icon: Users, label: "Usuarios", href: "/dashboard/users" },
+  { icon: Users, label: "Expedientes", href: "/dashboard/expedientes" },
   { icon: CheckSquare, label: "Tareas", href: "/dashboard/tasks" },
   { icon: FileText, label: "Facturas", href: "/dashboard/invoices" },
   { icon: Folder, label: "Documentos", href: "/dashboard/documents" },
